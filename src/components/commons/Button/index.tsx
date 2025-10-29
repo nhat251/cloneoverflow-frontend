@@ -1,60 +1,88 @@
-import { Button as MuiButton } from '@mui/material';
+import classNames from 'classnames/bind';
+import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
-import type { ReactNode, MouseEventHandler } from 'react';
+import React from 'react';
 
-interface ButtonProps {
-  size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'secondary' | 'error' | 'success' | 'info' | 'warning';
-  variant?: 'contained' | 'outlined' | 'text';
-  rounded?: boolean;
-  disabled?: boolean;
+const cx = classNames.bind(styles);
+
+// 🧩 Định nghĩa kiểu cho props
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string;
   href?: string;
-  children?: ReactNode;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  primary?: boolean;
+  outline?: boolean;
+  text?: boolean;
+  rounded?: boolean;
+  disable?: boolean;
+  small?: boolean;
+  large?: boolean;
+  children?: React.ReactNode;
   className?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
-function Button({
+// 🧩 Component Button
+const Button: React.FC<ButtonProps> = ({
   to,
   href,
-  color = 'primary',
-  variant = 'contained',
-  rounded,
-  disabled,
-  size,
+  primary = false,
+  outline = false,
+  text = false,
+  rounded = false,
+  disable = false,
+  small = false,
+  large = false,
   children,
-  startIcon,
-  endIcon,
-  onClick,
   className,
-}: ButtonProps) {
-  const borderRadius = rounded ? '50px' : undefined;
-  const Component = to ? Link : href ? 'a' : 'button';
+  leftIcon,
+  rightIcon,
+  onClick,
+  ...passProps
+}) => {
+  let Comp: React.ElementType = 'button';
+
+  const props: Record<string, any> = {
+    onClick,
+    ...passProps,
+  };
+
+  if (disable) {
+    Object.keys(props).forEach((key) => {
+      if (key.startsWith('on') && typeof props[key] === 'function') {
+        delete props[key];
+      }
+    });
+  }
+
+  // 🔗 Link hoặc <a>
+  if (to) {
+    props.to = to;
+    Comp = Link;
+  } else if (href) {
+    props.href = href;
+    Comp = 'a';
+  }
+
+  // 🎨 Áp dụng className
+  const classes = cx('wrapper', {
+    [className ?? '']: !!className,
+    primary,
+    outline,
+    small,
+    large,
+    text,
+    disable,
+    rounded,
+  });
 
   return (
-    <MuiButton
-      component={Component}
-      to={to}
-      href={href}
-      color={color ?? 'primary'}
-      disabled={disabled}
-      variant={variant ?? 'contained'}
-      size={size ?? 'medium'}
-      onClick={onClick}
-      startIcon={startIcon}
-      endIcon={endIcon}
-      className={className}
-      sx={{
-        borderRadius,
-        textTransform: 'none',
-      }}
-    >
-      {children}
-    </MuiButton>
+    <Comp className={classes} {...props}>
+      {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+      <span className={cx('title')}>{children}</span>
+      {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
+    </Comp>
   );
-}
+};
 
 export default Button;
