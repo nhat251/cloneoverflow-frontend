@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1px;
+
+  & li {
+    padding: 6px;
+    list-style: none;
+  }
+
+  & li:hover {
+    background-color: hsl(214.09deg 95.65% 90.98%);
+  }
+
+  & li a {
+    text-decoration: none;
+    color: black;
+  }
+}

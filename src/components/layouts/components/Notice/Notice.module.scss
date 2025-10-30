@@ -1,0 +1,19 @@
+.wrapper {
+  height: 56px;
+  padding: 6px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.notice-inner {
+  height: 100%;
+  width: 1200px;
+  display: flex;
+  align-items: center;
+
+  & .notice-logo {
+    width: 48px;
+    height: 48px;
+    margin: 10px;
+  }
+}

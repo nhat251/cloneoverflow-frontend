@@ -1,33 +1,41 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginModal from './components/Popup/LoginPopup';
-import { publicRoutes } from './routes';
-import DefaultLayout from './components/layouts/DefaultLayout';
+import GlobalStyles from './components/GlobalStyles';
+import { publicRoutes } from '~/routes';
+import { type IRoute } from '~/types/IRoute';
+import { DefaultLayout } from './components/layouts';
+import { Fragment, type ComponentType } from 'react';
 
 function App() {
   return (
     <>
-      {/* <ThemeProvider theme={theme}> */}
-      {/* <CssBaseline /> */}
       <Router>
-        <Routes>
-          {publicRoutes.map((route, index) => {
-            const Page = route.component;
-
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <DefaultLayout>
-                    <Page />
-                  </DefaultLayout>
+        <GlobalStyles>
+          <div className="app">
+            <Routes>
+              {publicRoutes.map((r: IRoute, index) => {
+                const Page = r.component;
+                let Layout: ComponentType<{ children?: React.ReactNode }> = DefaultLayout;
+                if (r.layout) {
+                  Layout = r.layout;
+                } else if (r.layout === null) {
+                  Layout = Fragment;
                 }
-              />
-            );
-          })}
-        </Routes>
+                return (
+                  <Route
+                    key={index}
+                    path={r.path}
+                    element={
+                      <Layout>
+                        <Page></Page>
+                      </Layout>
+                    }
+                  />
+                );
+              })}
+            </Routes>
+          </div>
+        </GlobalStyles>
       </Router>
-      {/* </ThemeProvider> */}
     </>
   );
 }
