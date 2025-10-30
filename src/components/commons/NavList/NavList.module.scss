@@ -1,19 +1,25 @@
 .navbar {
+  --nav-item-hover-background: hsl(214.09deg 95.65% 90.98%);
+
   display: flex;
   justify-content: space-between;
   gap: 1px;
 
   & li {
-    padding: 6px;
     list-style: none;
-  }
-
-  & li:hover {
-    background-color: hsl(214.09deg 95.65% 90.98%);
   }
 
   & li a {
     text-decoration: none;
     color: black;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  & li a:hover {
+    background-color: var(--nav-item-hover-background);
+    border-radius: 10px;
+    color: hsla(217, 95%, 46%, 1);
   }
 }

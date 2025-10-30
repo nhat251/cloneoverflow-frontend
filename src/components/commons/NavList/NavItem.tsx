@@ -1,9 +1,9 @@
 import { type PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 
-import INavComponentProps from '~/types/INavComponentProps.ts';
+import { INavComponentProps } from '~/types/INavComponentPros';
 
-function NavLi({ path, children }: PropsWithChildren<INavComponentProps>) {
+function NavItem({ path, children }: PropsWithChildren<INavComponentProps>) {
   return (
     <li>
       <Link to={path}>{children}</Link>
@@ -11,4 +11,4 @@ function NavLi({ path, children }: PropsWithChildren<INavComponentProps>) {
   );
 }
 
-export default NavLi;
+export default NavItem;

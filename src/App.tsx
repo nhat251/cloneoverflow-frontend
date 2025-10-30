@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import GlobalStyles from './components/GlobalStyles';
+import GlobalStyles from '~/components/GlobalStyles';
 import { publicRoutes } from '~/routes';
 import { type IRoute } from '~/types/IRoute';
 import { DefaultLayout } from './components/layouts';
@@ -10,30 +10,28 @@ function App() {
     <>
       <Router>
         <GlobalStyles>
-          <div className="app">
-            <Routes>
-              {publicRoutes.map((r: IRoute, index) => {
-                const Page = r.component;
-                let Layout: ComponentType<{ children?: React.ReactNode }> = DefaultLayout;
-                if (r.layout) {
-                  Layout = r.layout;
-                } else if (r.layout === null) {
-                  Layout = Fragment;
-                }
-                return (
-                  <Route
-                    key={index}
-                    path={r.path}
-                    element={
-                      <Layout>
-                        <Page></Page>
-                      </Layout>
-                    }
-                  />
-                );
-              })}
-            </Routes>
-          </div>
+          <Routes>
+            {publicRoutes.map((r: IRoute, index) => {
+              const Page = r.component;
+              let Layout: ComponentType<{ children?: React.ReactNode }> = DefaultLayout;
+              if (r.layout) {
+                Layout = r.layout;
+              } else if (r.layout === null) {
+                Layout = Fragment;
+              }
+              return (
+                <Route
+                  key={index}
+                  path={r.path}
+                  element={
+                    <Layout>
+                      <Page></Page>
+                    </Layout>
+                  }
+                />
+              );
+            })}
+          </Routes>
         </GlobalStyles>
       </Router>
     </>

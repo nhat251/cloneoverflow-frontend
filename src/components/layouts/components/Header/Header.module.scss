@@ -6,16 +6,26 @@
 
   width: 100%;
   height: var(--default-layout-header-height);
-  box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+  // box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
   display: flex;
   justify-content: center;
 }
 
-.inner {
+.header-inner {
   width: var(--default-layout-width);
-  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0px var(--default-layout-horizontal-spacer);
+}
+
+.logo {
+  margin: 0 6px 0 15px;
+}
+
+.logo img {
+  width: 42px;
+  height: 42px;
+}
+
+.actions {
+  margin-left: auto;
 }

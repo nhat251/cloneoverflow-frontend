@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react';
-import './GlobalStyles.css';
+import './GlobalStyles.module.scss';
 
 function GlobalStyles({ children }: PropsWithChildren) {
   return <>{children}</>;
