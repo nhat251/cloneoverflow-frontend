@@ -1,8 +1,6 @@
 .navbar {
   --nav-item-hover-background: hsl(214.09deg 95.65% 90.98%);
-
   display: flex;
-  justify-content: space-between;
   gap: 1px;
 
   & li {
@@ -12,7 +10,7 @@
   & li a {
     text-decoration: none;
     color: black;
-    padding: 10px 20px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
   }
