@@ -1,0 +1,24 @@
+.wrapper {
+  height: 56px;
+  padding: 6px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.header-inner {
+  height: 100%;
+  width: 1200px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin: 0 6px 0 15px;
+  width: 42px;
+  height: 42px;
+}
+
+.logo a img {
+  width: 100%;
+}
