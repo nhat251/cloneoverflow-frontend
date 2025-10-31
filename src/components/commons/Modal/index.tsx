@@ -1,48 +1,33 @@
-import React, { ReactNode } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, DialogProps, Box } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-interface ModalProps {
-  isOpen: boolean;
+interface ModalProps extends Omit<DialogProps, 'onClose'> {
+  open: boolean;
   title?: string;
-  children?: ReactNode; 
+  children?: React.ReactNode;
   onClose: () => void;
-  footer?: ReactNode; 
+  additionalButton?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, title, children, footer, onClose }) => {
-  if (!isOpen) return null;
-
-  return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-black bg-opacity-50"
-        onClick={onClose}
-      ></div>
-
-      {/* Modal Box */}
-      <div className="relative bg-white rounded-2xl shadow-lg max-w-lg w-full mx-4 p-6 z-10">
-        {/* Header */}
-        {title && (
-          <div className="flex justify-between items-center border-b pb-3 mb-4">
-            <h2 className="text-xl font-semibold">{title}</h2>
-            <button
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
-            >
-              ×
-            </button>
-          </div>
+const Modal: React.FC<ModalProps> = ({ open, title, children, onClose, additionalButton, ...dialogProps }) => {
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth {...dialogProps}>
+      <Box sx={{display: 'flex'}}>
+        {(title || !!onClose) && (
+          <DialogTitle component='div' sx={{ m: 0, p: 2}}>
+            {title && <h2>{title}</h2>}
+          </DialogTitle>
         )}
+        <div style={{margin: '0 0 0 auto', padding: '1rem'}}><FontAwesomeIcon icon={faXmark} onClick={onClose}/></div>
+      </Box>
+      <DialogContent dividers>
+        {typeof children === 'string' ? <Typography>{children}</Typography> : children}
+      </DialogContent>
 
-        {/* Content */}
-        <div className="mb-4">{children}</div>
-
-        {/* Footer */}
-        {footer && <div className="pt-3 border-t">{footer}</div>}
-      </div>
-    </div>,
-    document.body
+      {additionalButton && <DialogActions>{additionalButton}</DialogActions>}
+    </Dialog>
   );
 };
 

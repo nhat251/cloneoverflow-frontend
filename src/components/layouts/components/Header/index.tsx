@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import Button from '~/components/commons/Button';
 import NavList from '~/components/commons/NavList';
+import { useState } from 'react';
+import LoginModal from '~/components/Popup/LoginModal';
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +18,7 @@ function Header() {
     { path: '/coursera', text: 'Dịch vụ coursera' },
     { path: '/shop', text: 'Shop' },
   ];
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div className={cx('wrapper')}>
@@ -27,12 +30,13 @@ function Header() {
         </div>
         <NavList list={navArray} />
         <div className={cx('actions')}>
-          <Button primary className={cx('custom-login')}>
+          <Button primary className={cx('custom-login')} onClick={() => setIsOpen(true)}>
             Log in
           </Button>
-          <Button outline className={cx('custom-register')}>
+          <Button outline className={cx('custom-register')} onClick={() => setIsOpen(true)}>
             Register
           </Button>
+          {isOpen && <LoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
         </div>
       </header>
     </div>
