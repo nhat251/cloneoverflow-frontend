@@ -3,25 +3,29 @@ import classNames from 'classnames/bind';
 import styles from './LoginPopup.module.scss';
 import { Button, TextField, Stack } from '@mui/material';
 import Popup from '~/components/commons/Popup';
+import callApi from '~/components/api/axiosConfig';
+import { LOGIN } from '~/constants/api';
 
 const cx = classNames.bind(styles);
 
 interface LoginPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onLogin?: (username: string, password: string) => void;
+  // onLogin?: (username: string, password: string) => void;
 }
 
-const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose, onLogin }) => {
+const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    if (onLogin) {
-      onLogin(username, password);
-    } else {
-      console.log('Login with:', { username, password });
-    }
+  const handleLogin = async () => {
+    const data = {
+      username: username,
+      password: password,
+    };
+    const response = await callApi({ path: LOGIN, method: 'POST', data: data });
+    console.log(response);
+    
     onClose();
   };
 
@@ -31,12 +35,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose, onLogin }) => 
       onClose={onClose}
       title="Login"
       additionalButton={
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleLogin}
-          className={cx('login-btn')}
-        >
+        <Button variant="contained" color="primary" onClick={handleLogin} className={cx('login-btn')}>
           Login
         </Button>
       }

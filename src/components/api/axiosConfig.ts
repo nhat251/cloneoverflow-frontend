@@ -68,9 +68,9 @@ const callApi = async ({ path, method = 'GET', data, config }: ApiRequestProps):
         throw new Error(`Unsupported HTTP method: ${method}`);
     }
 
-    return response.data;
+    return response;
   } catch (error) {
-    console.error(`❌ Error calling API [${method}] ${path}:`, error);
+    console.error(`Error calling API [${method}] ${path}:`, error);
     throw error;
   }
 };

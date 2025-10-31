@@ -4,6 +4,7 @@ import Button from '~/components/commons/Button';
 import images from '~/assets/images';
 import { useState } from 'react';
 import LoginPopup from '~/components/Popup/LoginPopup';
+import callApi from '~/components/api/axiosConfig';
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +24,7 @@ function Header() {
           <Button outline className={cx('custom-register')}>
             Register
           </Button>
-          {isOpenLoginPopup && <LoginPopup isOpen={isOpenLoginPopup} />}
+          {isOpenLoginPopup && <LoginPopup isOpen={isOpenLoginPopup} onClose={() => setIsLoginPopup(false)} />}
         </div>
       </div>
     </header>
