@@ -11,16 +11,18 @@ interface ModalProps extends Omit<DialogProps, 'onClose'> {
   additionalButton?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ open, title, children, onClose, additionalButton, ...dialogProps }) => {
+function Modal({ open, title, children, onClose, additionalButton, ...dialogProps }: ModalProps) {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth {...dialogProps}>
-      <Box sx={{display: 'flex'}}>
+      <Box sx={{ display: 'flex' }}>
         {(title || !!onClose) && (
-          <DialogTitle component='div' sx={{ m: 0, p: 2}}>
+          <DialogTitle component="div" sx={{ m: 0, p: 2 }}>
             {title && <h2>{title}</h2>}
           </DialogTitle>
         )}
-        <div style={{margin: '0 0 0 auto', padding: '1rem'}}><FontAwesomeIcon icon={faXmark} onClick={onClose}/></div>
+        <div style={{ margin: '0 0 0 auto', padding: '1rem' }}>
+          <FontAwesomeIcon icon={faXmark} onClick={onClose} />
+        </div>
       </Box>
       <DialogContent dividers>
         {typeof children === 'string' ? <Typography>{children}</Typography> : children}
@@ -29,6 +31,6 @@ const Modal: React.FC<ModalProps> = ({ open, title, children, onClose, additiona
       {additionalButton && <DialogActions>{additionalButton}</DialogActions>}
     </Dialog>
   );
-};
+}
 
 export default Modal;

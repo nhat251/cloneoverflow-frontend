@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './LoginModal.module.scss';
 import { TextField, Stack } from '@mui/material';
+
+import styles from './LoginModal.module.scss';
 import Modal from '~/components/commons/Modal';
-import callApi from '~/api/axiosConfig';
-import { LOGIN } from '~/components/commons/constants/api';
 import Button from '~/components/commons/Button';
+import { useAuth } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -15,18 +15,14 @@ interface LoginModalProps {
   // onLogin?: (username: string, password: string) => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+function LoginModal({ isOpen, onClose }: LoginModalProps) {
+  const { login: handleLogin } = useAuth();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    const data = {
-      username: username,
-      password: password,
-    };
-    const response = await callApi({ path: LOGIN, method: 'POST', data: data });
-    console.log(response);
-
+  const handleLoginBtn = async () => {
+    handleLogin(username, password);
     onClose();
   };
 
@@ -36,7 +32,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       onClose={onClose}
       title="Login"
       additionalButton={
-        <Button primary onClick={handleLogin} className={cx('login-btn')}>
+        <Button primary onClick={handleLoginBtn} className={cx('login-btn')}>
           Login
         </Button>
       }
@@ -62,6 +58,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       </Stack>
     </Modal>
   );
-};
+}
 
 export default LoginModal;

@@ -6,7 +6,7 @@ import images from '~/assets/images';
 import Button from '~/components/commons/Button';
 import NavList from '~/components/commons/NavList';
 import { useState } from 'react';
-import LoginModal from '~/components/modals/LoginModal';
+import LoginModal from '~/components/layouts/components/Header/LoginModal';
 
 const cx = classNames.bind(styles);
 

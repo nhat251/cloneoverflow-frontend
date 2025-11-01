@@ -23,14 +23,16 @@ api.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry: boolean };
     if (error.response?.status === 401) {
-      if (!originalRequest._retry) {
-        originalRequest._retry = true;
-        await api.post(REFRESH_TOKEN);
-        console.log(originalRequest);
+      if (!originalRequest.url?.includes('/login')) {
+        if (!originalRequest._retry) {
+          originalRequest._retry = true;
+          await api.post(REFRESH_TOKEN);
+          console.log(originalRequest);
 
-        return api(originalRequest);
-      } else {
-        api.post(LOGOUT);
+          return api(originalRequest);
+        } else {
+          api.post(LOGOUT);
+        }
       }
     }
     // const nagivate = useNavigate();
