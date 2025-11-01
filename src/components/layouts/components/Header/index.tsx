@@ -7,6 +7,7 @@ import Button from '~/components/commons/Button';
 import NavList from '~/components/commons/NavList';
 import { useState } from 'react';
 import LoginModal from '~/components/layouts/components/Header/LoginModal';
+import { useAuth } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +21,7 @@ function Header() {
   ];
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const { state, logout } = useAuth();
   return (
     <div className={cx('wrapper')}>
       <header className={cx('header-inner')}>
@@ -30,13 +32,24 @@ function Header() {
         </div>
         <NavList list={navArray} />
         <div className={cx('actions')}>
-          <Button primary className={cx('custom-login')} onClick={() => setIsOpen(true)}>
-            Log in
-          </Button>
-          <Button outline className={cx('custom-register')} onClick={() => setIsOpen(true)}>
-            Register
-          </Button>
-          {isOpen && <LoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
+          {state ? (
+            <div className={cx('user-info')}>
+              <span>Xin chào, {state.fullName}</span>
+              <Button outline onClick={logout}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Button primary className={cx('custom-login')} onClick={() => setIsOpen(true)}>
+                Log in
+              </Button>
+              <Button outline className={cx('custom-register')} onClick={() => setIsOpen(true)}>
+                Register
+              </Button>
+              {isOpen && <LoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
+            </>
+          )}
         </div>
       </header>
     </div>

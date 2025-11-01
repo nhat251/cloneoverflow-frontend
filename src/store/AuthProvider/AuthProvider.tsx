@@ -1,9 +1,9 @@
 import { PropsWithChildren, useCallback, useEffect, useReducer } from 'react';
 import { AuthContext } from '~/store/contexts';
 import callApi from '~/api/axiosConfig';
-import { LOGIN, ME } from '~/components/commons/constants/api';
+import { LOGIN, LOGOUT, ME } from '~/components/commons/constants/api';
 import reducer, { initState } from '~/store/AuthProvider/reducer';
-import { login_action } from './actions';
+import { login_action, logout_action } from './actions';
 
 function AuthProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(reducer, initState);
@@ -23,9 +23,16 @@ function AuthProvider({ children }: PropsWithChildren) {
     }
   }, []);
 
+  const handleLogout = useCallback(async () => {
+    await callApi({ path: LOGOUT, method: 'POST' });
+    dispatch(logout_action());
+  }, []);
+
   return (
     <>
-      <AuthContext.Provider value={{ state, login: handleLogin }}>{children}</AuthContext.Provider>
+      <AuthContext.Provider value={{ state, login: handleLogin, logout: handleLogout }}>
+        {children}
+      </AuthContext.Provider>
     </>
   );
 }
