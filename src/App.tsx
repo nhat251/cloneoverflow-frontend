@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import GlobalStyles from '~/components/GlobalStyles';
 import { publicRoutes } from '~/routes';
 import { type IRoute } from '~/types/IRoute';
-import { DefaultLayout } from './components/layouts';
+import { DefaultLayout } from '~/components/layouts';
 import { Fragment, type ComponentType } from 'react';
 
 function App() {

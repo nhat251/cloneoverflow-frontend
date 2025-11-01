@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios';
-import { LOGOUT, REFRESH_TOKEN } from '~/constants/api';
+import { LOGOUT, REFRESH_TOKEN } from '~/components/commons/constants/api';
 import { useNavigate } from 'react-router-dom';
 import { use } from 'react';
 

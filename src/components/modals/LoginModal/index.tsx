@@ -3,8 +3,8 @@ import classNames from 'classnames/bind';
 import styles from './LoginModal.module.scss';
 import { TextField, Stack } from '@mui/material';
 import Modal from '~/components/commons/Modal';
-import callApi from '~/components/api/axiosConfig';
-import { LOGIN } from '~/constants/api';
+import callApi from '~/api/axiosConfig';
+import { LOGIN } from '~/components/commons/constants/api';
 import Button from '~/components/commons/Button';
 
 const cx = classNames.bind(styles);
@@ -26,7 +26,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     };
     const response = await callApi({ path: LOGIN, method: 'POST', data: data });
     console.log(response);
-    
+
     onClose();
   };
 

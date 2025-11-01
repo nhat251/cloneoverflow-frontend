@@ -1,6 +1,6 @@
 import Button from '~/components/commons/Button';
-import { DefaultLayout, HeaderOnlyLayout } from '~/components/layouts';
-import Home from '~/components/pages/Home';
+import { DefaultLayout, HeaderOnlyLayout } from '~/layouts';
+import { Home } from '~/components/pages';
 
 import { type IRoute } from '~/types/IRoute';
 

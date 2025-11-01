@@ -1,6 +1,6 @@
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Notification from '../commons/Notification';
+import Notification from '~/components/commons/Notification';
 
 const defaultOptions: ToastOptions = {
   position: 'top-right',
@@ -12,7 +12,6 @@ const defaultOptions: ToastOptions = {
   progress: undefined,
   theme: 'light',
 };
-
 
 class NotifyService {
   success(title: string, message: string): void {
