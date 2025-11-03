@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 
 function Header() {
   const navArray = [
-    { path: '/forum', text: 'Diễn đàn' },
+    { path: '/', text: 'Diễn đàn' },
     { path: '/document', text: 'Tài liệu' },
     { path: '/membership', text: 'Thành viên trả phí' },
     { path: '/coursera', text: 'Dịch vụ coursera' },
@@ -21,7 +21,7 @@ function Header() {
   ];
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { state, logout } = useAuth();
+  const { user, logout } = useAuth();
   return (
     <div className={cx('wrapper')}>
       <header className={cx('header-inner')}>
@@ -32,12 +32,12 @@ function Header() {
         </div>
         <NavList list={navArray} />
         <div className={cx('actions')}>
-          {state ? (
+          {user ? (
             <div className={cx('user-info')}>
-              <span>Xin chào, {state.fullName}</span>
-              <Button outline onClick={logout}>
-                Logout
-              </Button>
+              <div className={cx('username-block')}>
+                <img src={images.logo} alt="avt" />
+                <p>{user.fullName}</p>
+              </div>
             </div>
           ) : (
             <>

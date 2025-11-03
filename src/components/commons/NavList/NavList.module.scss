@@ -1,7 +1,6 @@
 .navbar {
-  --nav-item-hover-background: hsl(214.09deg 95.65% 90.98%);
   display: flex;
-  gap: 1px;
+  gap: 2px;
 
   & li {
     list-style: none;
@@ -13,11 +12,32 @@
     padding: 8px 12px;
     display: flex;
     align-items: center;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
   }
 
   & li a:hover {
     background-color: var(--nav-item-hover-background);
-    border-radius: 10px;
     color: hsla(217, 95%, 46%, 1);
+  }
+
+  & .active {
+    background-color: var(--nav-item-hover-background);
+    color: hsla(217, 95%, 46%, 1);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      width: calc(100% - 10px * 2);
+      height: 4px;
+      background: hsl(217.13deg 94.89% 46.08%);
+      padding-bottom: 3px;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
   }
 }

@@ -2,18 +2,17 @@ import Button from '~/components/commons/Button';
 import { DefaultLayout, HeaderOnlyLayout } from '~/layouts';
 import { Home } from '~/components/pages';
 
-import { type IRoute } from '~/types/IRoute';
+import { RouteObject } from '~/types/';
 
 // public routes
-const publicRoutes: IRoute[] = [
+const publicRoutes: RouteObject[] = [
   { path: '/', component: Home },
-  { path: '/forum', component: Button },
   { path: '/document', component: Button },
   { path: '/membership', component: Button },
   { path: '/coursera', component: Button },
   { path: '/shop', component: Button },
 ];
 
-const privateRoutes: IRoute[] = [];
+const privateRoutes: RouteObject[] = [];
 
 export { publicRoutes, privateRoutes };

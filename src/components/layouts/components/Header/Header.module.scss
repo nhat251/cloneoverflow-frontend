@@ -43,3 +43,21 @@
   gap: 5px;
   align-items: center;
 }
+
+.username-block {
+  display: flex;
+  gap: 5px;
+  padding: 8px;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: var(--nav-item-hover-background);
+    // color: hsla(217, 95%, 46%, 1);
+    cursor: pointer;
+  }
+
+  & img {
+    width: 24px;
+    height: 24px;
+  }
+}

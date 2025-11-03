@@ -1,12 +1,17 @@
 import { type PropsWithChildren } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import style from './NavList.module.scss';
+import { NavComponentProps } from '~/types';
 
-import { INavComponentProps } from '~/types/INavComponentPros';
+const cx = classNames.bind(style);
 
-function NavItem({ path, children }: PropsWithChildren<INavComponentProps>) {
+function NavItem({ path, children }: PropsWithChildren<NavComponentProps>) {
   return (
     <li>
-      <Link to={path}>{children}</Link>
+      <NavLink to={path} className={({ isActive }) => (isActive ? cx('active') : '')}>
+        {children}
+      </NavLink>
     </li>
   );
 }

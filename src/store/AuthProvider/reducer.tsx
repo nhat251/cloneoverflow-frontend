@@ -1,4 +1,4 @@
-import { IUser as User } from '~/types/IUser';
+import { User } from '~/types';
 import { SET_USER, LOGOUT } from '~/components/commons/constants/constant';
 
 type Action = { type: string; payload?: User | null };

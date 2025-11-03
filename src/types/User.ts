@@ -1,6 +1,6 @@
-export interface IUser {
+export default interface User {
   id: string;
-  fullName?: string;
+  fullName: string;
   dateOfBirth?: string | null;
   isActive: boolean;
   createdAt: string;
