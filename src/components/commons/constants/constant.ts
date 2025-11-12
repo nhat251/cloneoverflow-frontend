@@ -1,4 +1,8 @@
 const SET_USER = 'set_user';
 const LOGOUT = 'logout';
 
-export { SET_USER, LOGOUT };
+// auth
+const USER_KEY_STORAGE = 'USER_CLONEOVERFLOW';
+const ACCESS_TOKEN_KEY_STORAGE = 'ACCESS_TOKEN';
+
+export { SET_USER, LOGOUT, USER_KEY_STORAGE, ACCESS_TOKEN_KEY_STORAGE };

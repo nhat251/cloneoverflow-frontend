@@ -1,8 +1,7 @@
 import axios from 'axios';
 import type { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios';
 import { LOGOUT, REFRESH_TOKEN } from '~/components/commons/constants/api';
-import { useNavigate } from 'react-router-dom';
-import { use } from 'react';
+import { ACCESS_TOKEN_KEY_STORAGE } from '~/components/commons/constants/constant';
 
 interface ApiRequestProps {
   path: string;
@@ -16,27 +15,50 @@ const api = axios.create({
   withCredentials: true,
 });
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem(ACCESS_TOKEN_KEY_STORAGE);
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 api.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
   },
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
     if (error.response?.status === 401) {
-      if (!originalRequest.url?.includes('/login')) {
-        if (!originalRequest._retry) {
-          originalRequest._retry = true;
-          await api.post(REFRESH_TOKEN);
-          console.log(originalRequest);
+      const isRefreshRequest = originalRequest.url?.includes(REFRESH_TOKEN);
+
+      if (isRefreshRequest) {
+        localStorage.removeItem(ACCESS_TOKEN_KEY_STORAGE);
+        return Promise.reject(error);
+      }
+
+      if (!originalRequest._retry) {
+        originalRequest._retry = true;
+
+        try {
+          const { accessToken } = await api.post(REFRESH_TOKEN).then((res) => res.data.result);
+
+          localStorage.setItem(ACCESS_TOKEN_KEY_STORAGE, accessToken);
 
           return api(originalRequest);
-        } else {
-          api.post(LOGOUT);
+        } catch (refreshError) {
+          localStorage.removeItem(ACCESS_TOKEN_KEY_STORAGE);
+
+          // Dispatch custom event để trigger logout từ AuthProvider
+          window.dispatchEvent(new CustomEvent('auth:logout'));
+
+          return Promise.reject(refreshError);
         }
       }
     }
-    // const nagivate = useNavigate();
-    // nagivate('/');
+
+    return Promise.reject(error);
   },
 );
 
@@ -50,7 +72,6 @@ const callApi = async ({ path, method = 'GET', data, config }: ApiRequestProps):
         break;
 
       case 'POST':
-        console.log(data);
         response = await api.post(path, data, config);
         break;
 

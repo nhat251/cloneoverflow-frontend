@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { TextField, Stack } from '@mui/material';
 
@@ -21,9 +21,17 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleLoginBtn = async () => {
-    handleLogin(username, password);
-    onClose();
+    const message = await handleLogin(username, password);
+
+    if (message !== 'Invalid username or password') {
+      setErrorMessage(null);
+      onClose();
+    } else {
+      setErrorMessage(message);
+    }
   };
 
   return (
@@ -56,6 +64,7 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Stack>
+      <p className={cx('error-message')}>{errorMessage}</p>
     </Modal>
   );
 }

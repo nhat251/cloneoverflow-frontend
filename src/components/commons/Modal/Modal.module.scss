@@ -1,0 +1,11 @@
+.close-icon {
+  margin: 0 1rem 0 auto;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #efefef;
+  }
+}

@@ -8,6 +8,8 @@ import NavList from '~/components/commons/NavList';
 import { useState } from 'react';
 import LoginModal from '~/components/layouts/components/Header/LoginModal';
 import { useAuth } from '~/hooks';
+import callApi from '~/api/axiosConfig';
+import { ME } from '~/components/commons/constants/api';
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +24,14 @@ function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { user, logout } = useAuth();
+
+  const aaaa = async () => {
+    const res = await callApi({ path: ME });
+
+    console.log('res: ', res);
+
+    // logout();
+  };
   return (
     <div className={cx('wrapper')}>
       <header className={cx('header-inner')}>
@@ -36,7 +46,7 @@ function Header() {
             <div className={cx('user-info')}>
               <div className={cx('username-block')}>
                 <img src={images.logo} alt="avt" />
-                <p>{user.fullName}</p>
+                <p onClick={aaaa}>{user.fullName}</p>
               </div>
             </div>
           ) : (
