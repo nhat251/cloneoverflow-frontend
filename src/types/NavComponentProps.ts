@@ -1,3 +1,10 @@
+import { ReactNode } from "react";
+
 export default interface NavComponentProps {
-  path: string;
+  to: string,
+  title?: string,
+  icon?: ReactNode,
+  img?: string
 }
+
+

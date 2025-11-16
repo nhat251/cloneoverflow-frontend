@@ -1,6 +1,7 @@
 import Button from '~/components/commons/Button';
-import { DefaultLayout, HeaderOnlyLayout } from '~/layouts';
-import { Home } from '~/components/pages';
+// import { DefaultLayout, HeaderOnlyLayout } from '~/layouts';
+import { Home } from '~/pages';
+import Message from '~/pages/Message';
 
 import { RouteObject } from '~/types/';
 
@@ -11,6 +12,8 @@ const publicRoutes: RouteObject[] = [
   { path: '/membership', component: Button },
   { path: '/coursera', component: Button },
   { path: '/shop', component: Button },
+  { path: '/direct-message', component: Message },
+  { path: '/account/alerts', component: Button },
 ];
 
 const privateRoutes: RouteObject[] = [];

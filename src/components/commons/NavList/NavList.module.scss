@@ -9,17 +9,26 @@
   & li a {
     text-decoration: none;
     color: black;
-    padding: 8px 12px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   & li a:hover {
     background-color: var(--nav-item-hover-background);
     color: hsla(217, 95%, 46%, 1);
+
+    .icon {
+      color: hsla(217, 95%, 46%, 1);
+      transition: color 0.3s ease;
+    }
   }
 
   & .active {
@@ -38,6 +47,23 @@
       padding-bottom: 3px;
       border-radius: 20px;
       margin: 0 auto;
+      transition: all 0.3s ease;
+    }
+
+    .icon {
+      color: hsla(217, 95%, 46%, 1);
+      transition: color 0.3s ease;
     }
   }
+}
+
+.title {
+  margin-left: 3px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
 }

@@ -1,8 +1,8 @@
 import { PropsWithChildren, useCallback, useEffect, useReducer } from 'react';
-import { AuthContext } from '~/store/contexts';
+import { AuthContext } from '~/stores/contexts';
 import callApi from '~/api/axiosConfig';
 import { LOGIN, LOGOUT, ME } from '~/components/commons/constants/api';
-import reducer, { initState } from '~/store/AuthProvider/reducer';
+import reducer, { initState } from '~/stores/AuthProvider/reducer';
 import { login_action, logout_action } from './actions';
 
 function AuthProvider({ children }: PropsWithChildren) {
@@ -22,12 +22,12 @@ function AuthProvider({ children }: PropsWithChildren) {
     //   dispatch(login_action(me));
     // }
 
-    if (username === 'nsntfoz' && password === '1234') {
+    if (username === 'khang' && password === 'khang123') {
       dispatch(
         login_action({
           id: '12312',
-          fullName: 'nhat nguyen',
-          email: 'nsntfoz@gmail.com',
+          fullName: 'dam nguyen khang',
+          email: 'khang123@gmail.com',
           createdAt: '',
           isActive: true,
         }),

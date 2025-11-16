@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react';
-import { Header, Notice } from '~/components/layouts/components';
+import { Header, Notice } from '~/layouts/components';
 import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
 

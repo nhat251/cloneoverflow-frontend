@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 
 const cx = classNames.bind(styles);
@@ -42,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   let Comp: React.ElementType = 'button';
 
-  const props: Record<string, any> = {
+  const props: Record<string, unknown> = {
     onClick,
     ...passProps,
   };
